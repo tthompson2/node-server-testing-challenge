@@ -14,12 +14,17 @@ describe("cabinet integration tests", () => {
     it("GET /cabinets", async () => {
         const res = await supertest(server).get("/cabinets");
         expect(res.statusCode).toBe(200);
+        expect(res.type).toBe("application/json")
+        expect(res.body).toHaveLength(4);
+        expect(res.body[0].name).toBe("Spacewar!")
     })
 
     it("GET /cabinets/:id", async () => {
-        const res = await supertest(server).get("/cabinets/2")
+        const res = await supertest(server).get("/cabinets/0")
         expect(res.statusCode).toBe(200);
         expect(res.type).toBe("application/json");
+        expect(res.body.name).toBe("Spacewar!")
+
     })
 
     it ("GET /cabinets/:id (not found", async () => {
